@@ -51,7 +51,9 @@ namespace BirthaWebService.Controllers
             string name = reader.GetString(1);
             string email = reader.GetString(2);
             string password = reader.GetString(3);
-            User user = new User { Id = id, Name = name, Email = email, Password = password };
+            bool isAdmin = reader.GetBoolean(4);
+
+            User user = new User { Id = id, Name = name, Email = email, Password = password,IsAdmin = isAdmin};
             return user;
 
         }
@@ -93,7 +95,7 @@ namespace BirthaWebService.Controllers
         public int AddUser([FromBody] User value)
         {
             //INSERT INTO dbo.[User](Name,Email,Password)VALUES('Ben','ben@gmail.com','1234')
-            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password)VALUES(@name,@email,@password)";
+            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password,IsAdmin)VALUES(@name,@email,@password,@IsAdmin)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -103,6 +105,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@name", value.Name);
                     command.Parameters.AddWithValue("@email", value.Email);
                     command.Parameters.AddWithValue("@password", value.Password);
+                    command.Parameters.AddWithValue("@IsAdmin", value.IsAdmin);
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
                 }
@@ -115,7 +118,7 @@ namespace BirthaWebService.Controllers
         public int UpdateUser(int id, [FromBody] User value)
         {
             const string updateUser =
-                "UPDATE dbo.[User] SET Name=@name,Email=@email,Password=@password WHERE Id=@id";
+                "UPDATE dbo.[User] SET Name=@name,Email=@email,Password=@password,IsAdmin=@isAdmin WHERE Id=@id";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -125,6 +128,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@email", value.Email);
                     command.Parameters.AddWithValue("@password", value.Password);
                     command.Parameters.AddWithValue("@id", value.Id);
+                    command.Parameters.AddWithValue("@isAdmin", value.IsAdmin);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
