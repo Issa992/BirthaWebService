@@ -8,13 +8,6 @@ namespace BirthaWebService.Model
     public class User
     {
 
-        //[Id] INT IDENTITY(1, 1) NOT NULL,
-
-        //[Name]     VARCHAR(50)   NOT NULL,
-
-        //[Email]    VARCHAR(50)   NOT NULL,
-
-        //[Password] NVARCHAR(MAX) NOT NULL,
 
         public int Id { get; set; }
         public string Name { get; set; }

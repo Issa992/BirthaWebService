@@ -96,7 +96,7 @@ namespace BirthaWebService.Controllers
         public int AddUser([FromBody] User value)
         {
             //INSERT INTO dbo.[User](Name,Email,Password)VALUES('Ben','ben@gmail.com','1234')
-            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password,IsAdmin)VALUES(@name,@email,@password,@IsAdmin,@Location)";
+            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password,IsAdmin,Location)VALUES(@name,@email,@password,@IsAdmin,@location)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -107,7 +107,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@email", value.Email);
                     command.Parameters.AddWithValue("@password", value.Password);
                     command.Parameters.AddWithValue("@IsAdmin", value.IsAdmin);
-                    command.Parameters.AddWithValue("@Location", value.Location);
+                    command.Parameters.AddWithValue("@location", value.Location);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
