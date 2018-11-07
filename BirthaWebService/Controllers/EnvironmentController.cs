@@ -66,9 +66,10 @@ namespace BirthaWebService.Controllers
 
         // GET: api/Enviroment/5
         [Route("{id}")]
-        public Model.Environment Get(int id)
+        public Model.Environment GetById(int id)
         {
-            string selectString = "Select * FROM dbo.Environment where id = @id";
+            //SELECT * FROM dbo.Health WHERE UserId =1;
+            string selectString = "Select * FROM dbo.Environment where UserId = @id";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();

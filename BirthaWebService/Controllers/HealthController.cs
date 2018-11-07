@@ -65,9 +65,10 @@ namespace BirthaWebService.Controllers
 
         // GET: api/Health/5
         [Route("{id}")]
-        public Health Get(int id)
+        public Health GetById(int id)
         {
-            string selectString = "Select * FROM dbo.[Health] where id = @id";
+            //SELECT * FROM dbo.Health WHERE UserId =1;
+            string selectString = "Select * FROM dbo.[Health] where UserId = @id";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();

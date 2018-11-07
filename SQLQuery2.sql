@@ -16,3 +16,4 @@
 --INSERT INTO dbo.Environment(Oxygen,Nitrogen,CarbonDioxide,Methane,UserId)VALUES(3,2,4,5,1)
 
 --UPDATE dbo.Environment SET Oxygen=@oxygen,Nitrogen=@nitrogen,CarbonDioxide=@carbonDioxide,Methane=@methane,UserId=@userId WHERE Id=@id
+--SELECT * FROM dbo.Health WHERE UserId =1;

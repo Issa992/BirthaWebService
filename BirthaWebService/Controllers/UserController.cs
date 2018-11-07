@@ -60,7 +60,7 @@ namespace BirthaWebService.Controllers
 
         // GET: api/User/5
         [Route("{id}")]
-        public User Get(int id)
+        public User GetById(int id)
         {
             string selectString = "Select * FROM dbo.[User] where id = @id";
             using (SqlConnection conn = new SqlConnection(connectionString))
