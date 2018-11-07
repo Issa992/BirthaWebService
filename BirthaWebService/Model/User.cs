@@ -20,15 +20,18 @@ namespace BirthaWebService.Model
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Location { get; set; }
         public bool IsAdmin { get; set; }
 
-        public User(int id, string name, string email, string password, bool isAdmin)
+
+        public User(int id, string name, string email, string password, bool isAdmin,string location)
         {
             Id = id;
             Name = name;
             Email = email;
             Password = password;
             IsAdmin = isAdmin;
+            Location = location;
         }
 
         public User()
@@ -37,7 +40,7 @@ namespace BirthaWebService.Model
 
         public override string ToString()
         {
-            return Id + " " + Name + " " + Email+" "+IsAdmin;
+            return Id + " " + Name + " " + Email+" "+IsAdmin+" "+Location;
         }
     }
 }
