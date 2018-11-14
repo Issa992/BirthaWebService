@@ -161,5 +161,31 @@ namespace BirthaWebService.Controllers
                 }
             }
         }
+
+       // GET: api/Health/UsersDataWithSpecificId/id
+            [Route("UsersDataWithSpecificId/" + "{id}")]
+        public IEnumerable<Health> GetSpecificUsersHealthData(int id)
+        {
+            string selectString = "select * from Health where UserId = @id";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(selectString, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        List<Health> result = new List<Health>();
+                        while (reader.Read())
+                        {
+                            Health healthData = ReadHeath(reader);
+                            result.Add(healthData);
+                        }
+                        return result;
+                    }
+                }
+            }
+        }
     }
 }

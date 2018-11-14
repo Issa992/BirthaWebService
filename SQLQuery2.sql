@@ -17,3 +17,4 @@
 
 --UPDATE dbo.Environment SET Oxygen=@oxygen,Nitrogen=@nitrogen,CarbonDioxide=@carbonDioxide,Methane=@methane,UserId=@userId WHERE Id=@id
 --SELECT * FROM dbo.Health WHERE UserId =1;
+Select * FROM dbo.[Health] where UserId = 1
