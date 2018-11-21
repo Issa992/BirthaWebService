@@ -34,16 +34,17 @@ namespace BirthaWebService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors(
-                    options =>
-                    {
-                        options.AllowAnyOrigin().AllowAnyMethod();
-                        // allow everything from anywhere
-                    });
 
             }
 
             app.UseMvc();
+            app.UseCors(
+                options =>
+                {
+                    options.AllowAnyOrigin().AllowAnyMethod();
+                    // allow everything from anywhere
+                });
+
         }
     }
 }
