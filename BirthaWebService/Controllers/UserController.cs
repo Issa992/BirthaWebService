@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BirthaWebService.Controllers
 {
-    [EnableCors("AllowAnyOrigin")]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
