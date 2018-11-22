@@ -15,21 +15,18 @@ namespace BirthaWebService.Model
         public string Gender { get; set; }
         public int UserId { get; set; }
 
-        
-
-        public Health()
-        {
-        }
-
-        public Health(int id, int bloodPressure, int heartBeat, int age, int weight, string gender, int userId)
+        public Health(int id, int bloodPressure, int age, int weight, string gender,int userId)
         {
             Id = id;
             BloodPressure = bloodPressure;
-            HeartBeat = heartBeat;
             Age = age;
             Weight = weight;
             Gender = gender;
             UserId = userId;
+        }
+
+        public Health()
+        {
         }
 
         public override string ToString()

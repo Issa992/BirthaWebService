@@ -9,21 +9,21 @@ namespace BirthaWebService.Model
     public static class IdentityUser
     {
        
-            public static async Task<User> AuthenticateUser(User userToAuthenticate)
-            {
-                UserController uController = new UserController();
-                var userList = uController.Get();
+            //public static async Task<User> AuthenticateUser(User userToAuthenticate)
+            //{
+            //    UserController uController = new UserController();
+            //    var userList = uController.Get();
 
-                var user = await Task.Run(() => userList.SingleOrDefault(x => x.Name == userToAuthenticate.Name && x.Password == userToAuthenticate.Password));
+            //    var user = await Task.Run(() => userList.SingleOrDefault(x => x.Name == userToAuthenticate.Name && x.Password == userToAuthenticate.Password));
 
-                if (user == null)
-                {
-                    return null;
-                }
+            //    if (user == null)
+            //    {
+            //        return null;
+            //    }
 
-                user.Password = null; 
-                return user;
-            }
+            //    user.Password = userToAuthenticate.Password; 
+            //    return user;
+            //}
         
     }
 }

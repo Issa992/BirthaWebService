@@ -15,18 +15,18 @@ namespace BirthaWebService.Controllers
     {
 
 
-        // POST: api/Login
-        [HttpPost]
-        public async Task<ActionResult> Authenticate([FromBody] User userToAuthenticate)
-        {
-            var user = await IdentityUser.AuthenticateUser(userToAuthenticate);
+        //// POST: api/Login
+        //[HttpPost]
+        //public async Task<ActionResult> Authenticate([FromBody] User userToAuthenticate)
+        //{
+        //    var user = await IdentityUser.AuthenticateUser(userToAuthenticate);
 
-            if (user == null)
+        //    if (user == null)
                 
-                return Unauthorized();
+        //        return Unauthorized();
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
 
     }
