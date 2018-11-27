@@ -59,6 +59,28 @@ namespace BirthaWebService.Controllers
 
         }
 
+        //Login with ID
+        [Route("login/{name}/{password}")]
+        public User Login(string name, string password)
+        {
+            bool loginStatus = false;
+            var collection = Get();
+            if (collection !=null)
+            {
+                foreach (var user in collection)
+                {
+                    if ((user.Name==name)&&(user.Password==password))
+                    {
+                        loginStatus = true;
+                        return user;
+                    }
+                }
+            }
+
+            loginStatus = false;
+            return null;
+        }
+
         // GET: api/User/5
         [Route("{id}")]
         public User GetById(int id)
