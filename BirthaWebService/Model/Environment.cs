@@ -13,9 +13,12 @@ namespace BirthaWebService.Model
         public int CarbonDioxide { get; set; }
         public int Methane { get; set; }
         public int UserId { get; set; }
+        public decimal Humidity { get; set; }
+        public decimal Temperatur { get; set; }
 
 
-        public Environment(int id, int oxygen,int nitrogen ,int carbonDioxide, int methane, int userId)
+
+        public Environment(int id, int oxygen,int nitrogen ,int carbonDioxide, int methane, int userId, decimal humidity, decimal temperature)
         {
             Id = id;
             Oxygen = oxygen;
@@ -23,6 +26,8 @@ namespace BirthaWebService.Model
             CarbonDioxide = carbonDioxide;
             Methane = methane;
             UserId = userId;
+            Humidity = humidity;
+            Temperatur = temperature;
 
         }
 
@@ -32,7 +37,7 @@ namespace BirthaWebService.Model
 
         public override string ToString()
         {
-            return Id + " " + Oxygen + " "+Nitrogen+" " + CarbonDioxide + " " + Methane+ " "+UserId;
+            return Id + " " + Oxygen + " "+Nitrogen+" " + CarbonDioxide + " " + Methane+ " "+UserId+" "+Humidity+" "+Temperatur;
 
         }
     }

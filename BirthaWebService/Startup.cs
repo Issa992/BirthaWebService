@@ -33,19 +33,14 @@ namespace BirthaWebService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
                 app.UseCors(
                     options =>
                     {
-                        options.AllowAnyOrigin().AllowAnyMethod();
+                        options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                         // allow everything from anywhere
                     });
->>>>>>> parent of 193255d... Fixed
 
-=======
->>>>>>> parent of 4309043... Fixed
             }
 
             app.UseMvc();
