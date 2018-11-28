@@ -13,12 +13,12 @@ namespace BirthaWebService.Model
         public int CarbonDioxide { get; set; }
         public int Methane { get; set; }
         public int UserId { get; set; }
-        public decimal Humidity { get; set; }
-        public decimal Temperatur { get; set; }
+        public int Humidity { get; set; }
+        public int Temperatur { get; set; }
 
 
 
-        public Environment(int id, int oxygen,int nitrogen ,int carbonDioxide, int methane, int userId, decimal humidity, decimal temperature)
+        public Environment(int id, int oxygen,int nitrogen ,int carbonDioxide, int methane, int userId, int humidity, int temperature)
         {
             Id = id;
             Oxygen = oxygen;

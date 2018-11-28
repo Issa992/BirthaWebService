@@ -59,7 +59,9 @@ namespace BirthaWebService.Controllers
             int carbonDioxide = reader.GetInt32(3);
             int methane = reader.GetInt32(4);
             int userId = reader.GetInt32(5);
-            Model.Environment environment=new Model.Environment{CarbonDioxide = carbonDioxide,Id = id,Nitrogen = nitrogen,Methane = methane,Oxygen = oxygen,UserId = userId};
+            int humidity = reader.GetInt32(6);
+            int temperatur = reader.GetInt32(7);
+            Model.Environment environment=new Model.Environment{CarbonDioxide = carbonDioxide,Id = id,Nitrogen = nitrogen,Methane = methane,Oxygen = oxygen,UserId = userId,Humidity = humidity,Temperatur = temperatur};
             return environment;
         }
 
@@ -99,8 +101,8 @@ namespace BirthaWebService.Controllers
         [HttpPost]
         public int Post([FromBody] Model.Environment value)
         {
-            const string insertString = "INSERT INTO dbo.Environment(Oxygen,Nitrogen,CarbonDioxide,Methane,UserId)VALUES" +
-                                        "(@oxygen,@nitrogen,@carbonDioxide,@methane,@userId)";
+            const string insertString = "INSERT INTO dbo.Environment(Oxygen,Nitrogen,CarbonDioxide,Methane,UserId,Humidity,Temperatur)VALUES" +
+                                        "(@oxygen,@nitrogen,@carbonDioxide,@methane,@userId,@humidity,@temperature)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -112,6 +114,8 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@carbonDioxide", value.CarbonDioxide);
                     command.Parameters.AddWithValue("@methane", value.Methane);
                     command.Parameters.AddWithValue("@userid", value.UserId);
+                    command.Parameters.AddWithValue("@humidity", value.Humidity);
+                    command.Parameters.AddWithValue("@temperature", value.Temperatur);
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
                 }

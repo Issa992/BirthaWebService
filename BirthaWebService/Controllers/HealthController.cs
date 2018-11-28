@@ -99,7 +99,7 @@ namespace BirthaWebService.Controllers
         public int AddHealth([FromBody] Health value)
         {
             const string insertString = "INSERT INTO dbo.Health(BloodPressure,HeartBeat,Age,Weight,Gender,UserId)VALUES(" +
-                                        "@bloodPressure,@heartBeat,@age,@gender,@userid)";
+                                        "@bloodPressure,@heartBeat,@age,@weight,@gender,@userid)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -109,6 +109,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@bloodPressure", value.BloodPressure);
                     command.Parameters.AddWithValue("@heartBeat", value.HeartBeat);
                     command.Parameters.AddWithValue("@age", value.Age);
+                    command.Parameters.AddWithValue("@weight", value.Weight);
                     command.Parameters.AddWithValue("@gender", value.Gender);
                     command.Parameters.AddWithValue("@userid", value.UserId);
                     int rowsAffected = command.ExecuteNonQuery();
