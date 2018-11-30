@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,20 +49,15 @@ namespace BirthaWebService.Controllers
 
         private Model.Environment ReadEnviroment(SqlDataReader reader)
         {
-        //public int Id { get; set; }
-        //public int Oxygen { get; set; }
-        //public int CarbonDioxide { get; set; }
-        //public int Methane { get; set; }
-        //public int UserId { get; set; }
+
             int id = reader.GetInt32(0);
-            int oxygen = reader.GetInt32(1);
-            int nitrogen = reader.GetInt32(2);
-            int carbonDioxide = reader.GetInt32(3);
-            int methane = reader.GetInt32(4);
-            int userId = reader.GetInt32(5);
-            int humidity = reader.GetInt32(6);
-            int temperatur = reader.GetInt32(7);
-            Model.Environment environment=new Model.Environment{CarbonDioxide = carbonDioxide,Id = id,Nitrogen = nitrogen,Methane = methane,Oxygen = oxygen,UserId = userId,Humidity = humidity,Temperatur = temperatur};
+            int userId = reader.GetInt32(1);
+            decimal humidity = reader.GetDecimal(2);
+            decimal temperature = reader.GetDecimal(3);
+            DateTime dateTime = reader.GetDateTime(4);
+            string location = reader.GetString(5);
+
+            Model.Environment environment=new Model.Environment{Id = id,UserId = userId,Humidity = humidity,Temperatur = temperature,Location = location,DateTime = dateTime};
             return environment;
         }
 
@@ -101,21 +97,20 @@ namespace BirthaWebService.Controllers
         [HttpPost]
         public int Post([FromBody] Model.Environment value)
         {
-            const string insertString = "INSERT INTO dbo.Environment(Oxygen,Nitrogen,CarbonDioxide,Methane,UserId,Humidity,Temperatur)VALUES" +
-                                        "(@oxygen,@nitrogen,@carbonDioxide,@methane,@userId,@humidity,@temperature)";
+            const string insertString = "INSERT INTO dbo.Environment(UserId,Humidity,Temperatur,Datetime,Location)VALUES" +
+                                        "(@userId,@humidity,@temperature,@dateTime,@location)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 using (SqlCommand command = new SqlCommand(insertString, conn))
                 {
-                    command.Parameters.AddWithValue("@oxygen", value.Oxygen);
-                    command.Parameters.AddWithValue("@nitrogen", value.Nitrogen);
-                    command.Parameters.AddWithValue("@carbonDioxide", value.CarbonDioxide);
-                    command.Parameters.AddWithValue("@methane", value.Methane);
-                    command.Parameters.AddWithValue("@userid", value.UserId);
+                    command.Parameters.AddWithValue("@userId", value.UserId);
                     command.Parameters.AddWithValue("@humidity", value.Humidity);
                     command.Parameters.AddWithValue("@temperature", value.Temperatur);
+                    command.Parameters.AddWithValue("@dateTime", value.DateTime);
+                    command.Parameters.AddWithValue("@location", value.Location);
+ 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
                 }
@@ -125,28 +120,28 @@ namespace BirthaWebService.Controllers
 
         // PUT: api/Enviroment/5
         [HttpPut("{id}")]
-        public int Put(int id, [FromBody] Model.Environment value)
-        {
-            const string updateUser = "UPDATE dbo.Environment SET Oxygen=@oxygen,Nitrogen=@nitrogen,CarbonDioxide=@carbonDioxide,Methane=@methane,UserId=@userId WHERE Id=@id";
+        //public int Put(int id, [FromBody] Model.Environment value)
+        //{
+        //    const string updateUser = "UPDATE dbo.Environment SET Oxygen=@oxygen,Nitrogen=@nitrogen,CarbonDioxide=@carbonDioxide,Methane=@methane,UserId=@userId WHERE Id=@id";
             
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand(updateUser, conn))
-                {
-                    command.Parameters.AddWithValue("@oxygen", value.Oxygen);
-                    command.Parameters.AddWithValue("@nitrogen", value.Nitrogen);
-                    command.Parameters.AddWithValue("@carbonDioxide", value.CarbonDioxide);
-                    command.Parameters.AddWithValue("@methane", value.Methane);
-                    command.Parameters.AddWithValue("@userId", value.UserId);
-                    command.Parameters.AddWithValue("@id", value.Id);
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand command = new SqlCommand(updateUser, conn))
+        //        {
+        //            command.Parameters.AddWithValue("@oxygen", value.Oxygen);
+        //            command.Parameters.AddWithValue("@nitrogen", value.Nitrogen);
+        //            command.Parameters.AddWithValue("@carbonDioxide", value.CarbonDioxide);
+        //            command.Parameters.AddWithValue("@methane", value.Methane);
+        //            command.Parameters.AddWithValue("@userId", value.UserId);
+        //            command.Parameters.AddWithValue("@id", value.Id);
 
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    return rowsAffected;
-                }
-            }
-        }
+        //            int rowsAffected = command.ExecuteNonQuery();
+        //            return rowsAffected;
+        //        }
+        //    }
+        //}
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
