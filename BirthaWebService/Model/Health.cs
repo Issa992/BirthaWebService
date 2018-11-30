@@ -12,17 +12,16 @@ namespace BirthaWebService.Model
         public int HeartBeat { get; set; }
         public int Age { get; set; }
         public int Weight { get; set; }
-        public string Gender { get; set; }
         public int UserId { get; set; }
-
-        public Health(int id, int bloodPressure, int age, int weight, string gender,int userId)
+        public DateTime DateTime { get; set; }
+        public Health(int id, int bloodPressure, int age, int weight, int userId,DateTime dateTime)
         {
             Id = id;
             BloodPressure = bloodPressure;
             Age = age;
             Weight = weight;
-            Gender = gender;
             UserId = userId;
+            DateTime = dateTime;
         }
 
         public Health()
@@ -31,7 +30,7 @@ namespace BirthaWebService.Model
 
         public override string ToString()
         {
-            return Id + " " + BloodPressure + " " + Age + " " + Weight + " " + Gender+" "+UserId;
+            return Id + " " + BloodPressure + " " + Age + " " + Weight +" "+UserId+" "+DateTime;
         }
     }
 }

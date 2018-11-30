@@ -53,10 +53,11 @@ namespace BirthaWebService.Controllers
             int heartBeat = reader.GetInt32(2);
             int age = reader.GetInt32(3);
             int weight = reader.GetInt32(4);
-            string gender = reader.GetString(5);
-            int userId = reader.GetInt32(6);
+            int userId = reader.GetInt32(5);
+            DateTime dateTime = reader.GetDateTime(6);
 
-            Health health=new Health{Age =age,BloodPressure=bloodPressure ,HeartBeat = heartBeat,Gender = gender,Id = id,Weight = weight,UserId = userId};
+
+            Health health =new Health{Age =age,BloodPressure=bloodPressure ,HeartBeat = heartBeat,Id = id,Weight = weight,UserId = userId,DateTime = dateTime};
             return health;
 
 
@@ -98,8 +99,8 @@ namespace BirthaWebService.Controllers
         [HttpPost]
         public int AddHealth([FromBody] Health value)
         {
-            const string insertString = "INSERT INTO dbo.Health(BloodPressure,HeartBeat,Age,Weight,Gender,UserId)VALUES(" +
-                                        "@bloodPressure,@heartBeat,@age,@weight,@gender,@userid)";
+            const string insertString = "INSERT INTO dbo.Health(BloodPressure,HeartBeat,Age,Weight,UserId,DateTime)VALUES(" +
+                                        "@bloodPressure,@heartBeat,@age,@weight,@userid,@dateTime)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -110,8 +111,9 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@heartBeat", value.HeartBeat);
                     command.Parameters.AddWithValue("@age", value.Age);
                     command.Parameters.AddWithValue("@weight", value.Weight);
-                    command.Parameters.AddWithValue("@gender", value.Gender);
                     command.Parameters.AddWithValue("@userid", value.UserId);
+                    command.Parameters.AddWithValue("@dateTime", value.DateTime);
+
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
                 }
@@ -125,7 +127,7 @@ namespace BirthaWebService.Controllers
         {
             const string updateUser =
                 //UPDATE dbo.Health SET BloodPressure=2,HeartBeat=20,Age=21,Weight=40,Gender='Female',UserId=5 WHERE Id=4
-                "UPDATE dbo.Health SET BloodPressure=@bloodPressure,HeartBeat=@heartBeat,Age=@age,Weight=@weight,Gender=@gender,UserId=@userId WHERE Id=@id;";
+                "UPDATE dbo.Health SET BloodPressure=@bloodPressure,HeartBeat=@heartBeat,Age=@age,Weight=@weight,UserId=@userId WHERE Id=@id;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -135,7 +137,6 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@heartBeat", value.HeartBeat);
                     command.Parameters.AddWithValue("@age", value.Age);
                     command.Parameters.AddWithValue("@weight", value.Weight);
-                    command.Parameters.AddWithValue("@gender", value.Gender);
                     command.Parameters.AddWithValue("@userId", value.UserId);
                     command.Parameters.AddWithValue("@id", value.Id);
 
