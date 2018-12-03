@@ -54,7 +54,7 @@ namespace BirthaWebService.Controllers
             int age = reader.GetInt32(3);
             int weight = reader.GetInt32(4);
             int userId = reader.GetInt32(5);
-            DateTime dateTime = reader.GetDateTime(6);
+            string dateTime = reader.GetDateTime(6).ToString("G");
 
 
             Health health =new Health{Age =age,BloodPressure=bloodPressure ,HeartBeat = heartBeat,Id = id,Weight = weight,UserId = userId,DateTime = dateTime};

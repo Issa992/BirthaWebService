@@ -54,7 +54,7 @@ namespace BirthaWebService.Controllers
             int userId = reader.GetInt32(1);
             decimal humidity = reader.GetDecimal(2);
             decimal temperature = reader.GetDecimal(3);
-            DateTime dateTime = reader.GetDateTime(4);
+            string dateTime = reader.GetDateTime(4).ToString("G");
             string location = reader.GetString(5);
 
             Model.Environment environment=new Model.Environment{Id = id,UserId = userId,Humidity = humidity,Temperatur = temperature,Location = location,DateTime = dateTime};

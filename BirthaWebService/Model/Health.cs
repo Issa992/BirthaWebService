@@ -13,8 +13,19 @@ namespace BirthaWebService.Model
         public int Age { get; set; }
         public int Weight { get; set; }
         public int UserId { get; set; }
-        public DateTime DateTime { get; set; }
-        public Health(int id, int bloodPressure, int age, int weight, int userId,DateTime dateTime)
+        private DateTime _dateTime;
+
+        public string DateTime
+        {
+            get
+            {
+                return _dateTime.ToString();
+
+            }
+            set { _dateTime = System.DateTime.Parse(value); }
+        }
+
+        public Health(int id, int bloodPressure, int age, int weight, int userId,string dateTime)
         {
             Id = id;
             BloodPressure = bloodPressure;

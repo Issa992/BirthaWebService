@@ -13,12 +13,19 @@ namespace BirthaWebService.Model
         public int UserId { get; set; }
         public decimal Humidity { get; set; }
         public decimal Temperatur { get; set; }
-        public DateTime DateTime { get; set; }
+        private DateTime _dateTime;
+
+        public string DateTime
+        {
+            get { return _dateTime.ToString(); }
+            set { _dateTime = System.DateTime.Parse(value); }
+        }
+
         public string Location { get; set; }
 
 
 
-        public Environment(int id, int userId, decimal humidity, decimal temperatur, DateTime dateTime, string location)
+        public Environment(int id, int userId, decimal humidity, decimal temperatur, string dateTime, string location)
         {
             Id = id;
             UserId = userId;
