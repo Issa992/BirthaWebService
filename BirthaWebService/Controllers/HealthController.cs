@@ -66,7 +66,7 @@ namespace BirthaWebService.Controllers
 
         // GET: api/Health/5
         [Route("{id}")]
-        public Health GetById(int id)
+        public List<Health> GetById(int id)
         {
             //SELECT * FROM dbo.Health WHERE UserId =1;
             string selectString = "Select * FROM dbo.[Health] where UserId = @id";
@@ -78,16 +78,25 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@id", id);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+                        List<Health> result = new List<Health>();
+
                         if (reader.HasRows)
                         {
-                            reader.Read();
-                            return ReadHeath(reader);
+                            while (reader.Read())
+                            {
+                                Health health = ReadHeath(reader);
+                                result.Add(health);
+                            }
+                            //reader.Read();
+                            //return ReadHeath(reader);
+                            return result;
 
                         }
                         else
                         {
                             return null;
                         }
+
                     }
                 }
             }

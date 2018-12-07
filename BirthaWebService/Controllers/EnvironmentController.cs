@@ -64,7 +64,7 @@ namespace BirthaWebService.Controllers
 
         // GET: api/Enviroment/5
         [Route("{id}")]
-        public Model.Environment GetById(int id)
+        public List<Model.Environment> GetById(int id)
         {
             //SELECT * FROM dbo.Health WHERE UserId =1;
             string selectString = "Select * FROM dbo.Environment where UserId = @id";
@@ -76,18 +76,37 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@id", id);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+                        List<Model.Environment> result = new List<Model.Environment>();
+
                         if (reader.HasRows)
                         {
-                            reader.Read();
-                            return ReadEnviroment(reader);
+                            while (reader.Read())
+                            {
+                                Model.Environment environment = ReadEnviroment(reader);
+                                result.Add(environment);
+                            }
+                            //reader.Read();
+                            return result;
+
 
                         }
                         else
                         {
                             return null;
                         }
+
+
+                        //using (SqlDataReader reader = command.ExecuteReader())
+                        //{
+                        //    List<Model.Environment> result = new List<Model.Environment>();
+                        //    while (reader.Read())
+                        //    {
+                        //        Model.Environment environment = ReadEnviroment(reader);
+                        //        result.Add(environment);
+                        //    }
+
                     }
-                }
+                    }
             }
 
             return null;
