@@ -112,6 +112,35 @@ namespace BirthaWebService.Controllers
         }
 
 
+        //ByID with Array
+        [Route("specific/" + "{id}")]
+        public User getByID(int id)
+        {
+            string selectString = "Select * FROM dbo.[User] where id = @id";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand(selectString, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            return ReadUser(reader);
+
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         // POST: api/User
         [HttpPost]
