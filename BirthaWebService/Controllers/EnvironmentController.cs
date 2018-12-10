@@ -66,7 +66,6 @@ namespace BirthaWebService.Controllers
         [Route("{id}")]
         public List<Model.Environment> GetById(int id)
         {
-            //SELECT * FROM dbo.Health WHERE UserId =1;
             string selectString = "Select * FROM dbo.Environment where UserId = @id";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -85,28 +84,17 @@ namespace BirthaWebService.Controllers
                                 Model.Environment environment = ReadEnviroment(reader);
                                 result.Add(environment);
                             }
+
                             //reader.Read();
                             return result;
-
 
                         }
                         else
                         {
                             return null;
                         }
-
-
-                        //using (SqlDataReader reader = command.ExecuteReader())
-                        //{
-                        //    List<Model.Environment> result = new List<Model.Environment>();
-                        //    while (reader.Read())
-                        //    {
-                        //        Model.Environment environment = ReadEnviroment(reader);
-                        //        result.Add(environment);
-                        //    }
-
                     }
-                    }
+                }
             }
 
             return null;
@@ -162,6 +150,9 @@ namespace BirthaWebService.Controllers
         //    }
         //}
 
+
+
+        
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public int Delete(int id)
