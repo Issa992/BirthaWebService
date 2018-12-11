@@ -65,44 +65,44 @@ namespace BirthaWebService.Controllers
         }
 
         // GET: api/Health/5
-        [Route("{id}")]
-        public List<Health> GetById(int id)
-        {
-            //SELECT * FROM dbo.Health WHERE UserId =1;
-            string selectString = "Select * FROM dbo.[Health] where UserId = @id";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand(selectString, conn))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        List<Health> result = new List<Health>();
+        //[Route("{id}")]
+        //public List<Health> GetById(int id)
+        //{
+        //    //SELECT * FROM dbo.Health WHERE UserId =1;
+        //    string selectString = "Select * FROM dbo.[Health] where UserId = @id";
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand command = new SqlCommand(selectString, conn))
+        //        {
+        //            command.Parameters.AddWithValue("@id", id);
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                List<Health> result = new List<Health>();
 
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Health health = ReadHeath(reader);
-                                result.Add(health);
-                            }
-                            //reader.Read();
-                            //return ReadHeath(reader);
-                            return result;
+        //                if (reader.HasRows)
+        //                {
+        //                    while (reader.Read())
+        //                    {
+        //                        Health health = ReadHeath(reader);
+        //                        result.Add(health);
+        //                    }
+        //                    //reader.Read();
+        //                    //return ReadHeath(reader);
+        //                    return result;
 
-                        }
-                        else
-                        {
-                            return null;
-                        }
+        //                }
+        //                else
+        //                {
+        //                    return null;
+        //                }
 
-                    }
-                }
-            }
+        //            }
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         // POST: api/Health
         [HttpPost]

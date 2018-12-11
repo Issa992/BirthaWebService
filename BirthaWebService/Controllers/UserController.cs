@@ -53,8 +53,9 @@ namespace BirthaWebService.Controllers
             string password = reader.GetString(3);
             bool isAdmin = reader.GetBoolean(4);
             string location = reader.GetString(5);
+            string gender = reader.GetString(6);
 
-            User user = new User { Id = id, Name = name, Email = email, Password = password,IsAdmin = isAdmin,Location = location};
+            User user = new User { Id = id, Name = name, Email = email, Password = password,IsAdmin = isAdmin,Location = location,Gender = gender};
             return user;
 
         }
@@ -82,34 +83,34 @@ namespace BirthaWebService.Controllers
         }
 
         // GET: api/User/5
-        [Route("{id}")]
-        public User GetById(int id)
-        {
-            string selectString = "Select * FROM dbo.[User] where id = @id";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand(selectString, conn))
-                {
-                    command.Parameters.AddWithValue("@id", id);
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return ReadUser(reader);
+        //[Route("{id}")]
+        //public User GetById(int id)
+        //{
+        //    string selectString = "Select * FROM dbo.[User] where id = @id";
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand command = new SqlCommand(selectString, conn))
+        //        {
+        //            command.Parameters.AddWithValue("@id", id);
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                if (reader.HasRows)
+        //                {
+        //                    reader.Read();
+        //                    return ReadUser(reader);
 
-                        }
-                        else
-                        {
-                            return null;
-                        }
-                    }
-                }
-            }
+        //                }
+        //                else
+        //                {
+        //                    return null;
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
 
         //ByID with Array
@@ -145,7 +146,7 @@ namespace BirthaWebService.Controllers
         public int AddUser([FromBody] User value)
         {
             //INSERT INTO dbo.[User](Name,Email,Password)VALUES('Ben','ben@gmail.com','1234')
-            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password,IsAdmin,Location)VALUES(@name,@email,@password,@IsAdmin,@location)";
+            const string insertString = "INSERT INTO dbo.[User](Name,Email,Password,IsAdmin,Location,Gender)VALUES(@name,@email,@password,@IsAdmin,@location,@gender)";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -157,6 +158,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@password", value.Password);
                     command.Parameters.AddWithValue("@IsAdmin", value.IsAdmin);
                     command.Parameters.AddWithValue("@location", value.Location);
+                    command.Parameters.AddWithValue("@gender", value.Gender);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
@@ -170,7 +172,7 @@ namespace BirthaWebService.Controllers
         public int UpdateUser(int id, [FromBody] User value)
         {
             const string updateUser =
-                "UPDATE dbo.[User] SET Name=@name,Email=@email,Password=@password,IsAdmin=@isAdmin,Location=@location WHERE Id=@id";
+                "UPDATE dbo.[User] SET Name=@name,Email=@email,Password=@password,IsAdmin=@isAdmin,Location=@location,Gender=@gender WHERE Id=@id";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -182,6 +184,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@id", value.Id);
                     command.Parameters.AddWithValue("@isAdmin", value.IsAdmin);
                     command.Parameters.AddWithValue("@location", value.Location);
+                    command.Parameters.AddWithValue("gender", value.Gender);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
