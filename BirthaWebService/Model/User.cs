@@ -36,7 +36,7 @@ namespace BirthaWebService.Model
 
         public override string ToString()
         {
-            return Id + " " + Name + " " + Email+" "+IsAdmin+" "+Location+" "+Gender;
+            return Id + " " + Name + " " + Email+" "+IsAdmin+" "+Location+" "+Gender+" ";
         }
     }
 }

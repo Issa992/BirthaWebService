@@ -184,7 +184,7 @@ namespace BirthaWebService.Controllers
                     command.Parameters.AddWithValue("@id", value.Id);
                     command.Parameters.AddWithValue("@isAdmin", value.IsAdmin);
                     command.Parameters.AddWithValue("@location", value.Location);
-                    command.Parameters.AddWithValue("gender", value.Gender);
+                    command.Parameters.AddWithValue("@gender", value.Gender);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected;
